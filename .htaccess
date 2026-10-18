@@ -1,0 +1,16 @@
+# 1. Disable directory browsing (Hides the file list)
+Options -Indexes
+
+# 2. Secure the SQLite database from being downloaded
+<Files "inventory.db">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# 3. Turn on URL Routing
+RewriteEngine On
+
+# 4. Route specific words to your single-file system
+RewriteRule ^login/?$ index.php [NC,L]
+RewriteRule ^dashboard/?$ index.php [NC,L]
+RewriteRule ^admin/?$ index.php [NC,L]

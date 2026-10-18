@@ -1,0 +1,23 @@
+services:
+  app:
+    build: .
+    container_name: alrish_inventory_app
+    restart: always
+    ports:
+      - "127.0.0.1:8081:80"
+    # Secrets live in an untracked .env on the server (DB_PASS, INITIAL_*_PASSWORD)
+    env_file:
+      - .env
+    environment:
+      - DB_DRIVER=mysql
+      - DB_HOST=srh_toda_db
+      - DB_PORT=3306
+      - DB_NAME=alrish_inventory
+      - DB_USER=srh_user
+    networks:
+      - srh_network
+
+networks:
+  srh_network:
+    external: true
+    name: srh-toda-system_default

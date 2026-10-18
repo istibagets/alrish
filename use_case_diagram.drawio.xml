@@ -1,0 +1,194 @@
+<mxfile host="app.diagrams.net" modified="2026-09-23T13:20:00.000Z" agent="Mozilla/5.0" version="21.0.0" type="device">
+  <diagram id="AlRishUseCaseClean" name="Al Rish Use Case Diagram">
+    <mxGraphModel dx="1422" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="1100" background="#FFFFFF" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="Al Rish Al Khaleeji Enterprise Inventory System with Smart Warranty Tracking" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#0F172A;" vertex="1" parent="1">
+          <mxGeometry x="250" y="20" width="850" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="UML Use Case Model · Core Business Goals, System Boundary &amp; Actors" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#64748B;" vertex="1" parent="1">
+          <mxGeometry x="350" y="50" width="650" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- SYSTEM BOUNDARY RECTANGLE -->
+        <mxCell id="boundary" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#475569;strokeWidth=2;arcSize=2;" vertex="1" parent="1">
+          <mxGeometry x="240" y="90" width="760" height="920" as="geometry" />
+        </mxCell>
+        <mxCell id="boundary_tag" value="System Boundary: Al Rish Al Khaleeji Core System" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=13;fontStyle=1;fontColor=#0284C7;" vertex="1" parent="1">
+          <mxGeometry x="260" y="105" width="400" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- PRIMARY ACTORS (LEFT) -->
+        <mxCell id="act_cashier" value="Sales Counter&#xa;Staff" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#FFEDD5;strokeColor=#EA580C;strokeWidth=2;fontColor=#0F172A;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="260" width="55" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="act_admin" value="Inventory Admin /&#xa;Manager" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#F3E8FF;strokeColor=#9333EA;strokeWidth=2;fontColor=#0F172A;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="680" width="55" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- SECONDARY / EXTERNAL ACTORS (RIGHT) -->
+        <mxCell id="act_customer" value="Machinery Client /&#xa;Customer" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#E0F2FE;strokeColor=#0284C7;strokeWidth=2;fontColor=#0F172A;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="260" width="55" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="act_supplier" value="Machine / Parts&#xa;Supplier" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#D1FAE5;strokeColor=#059669;strokeWidth=2;fontColor=#0F172A;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="470" width="55" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="act_broadcast" value="Realtime Broadcast&#xa;Sync Engine" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;fillColor=#E0F2FE;strokeColor=#0369A1;fontColor=#0369A1;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="720" width="120" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="act_alert" value="Stock Alert&#xa;Daemon" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;fillColor=#FFE4E6;strokeColor=#E11D48;fontColor=#BE123C;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="850" width="120" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- USE CASES: COLUMN 1 (MAIN GOALS) -->
+        <!-- UC 1: Process Sale -->
+        <mxCell id="uc_sale" value="Process Multi-Line&#xa;Customer Sale" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFF7ED;strokeColor=#EA580C;strokeWidth=2;fontColor=#9A3412;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="150" width="190" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- UC 2: Receive Restock -->
+        <mxCell id="uc_restock" value="Receive Supplier&#xa;Machinery Restock" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=2;fontColor=#065F46;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="320" width="190" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- UC 3: Warranty Claim -->
+        <mxCell id="uc_claim" value="Claim Warranty &amp; Order&#xa;Free Replacement Part" style="ellipse;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#2563EB;strokeWidth=2;fontColor=#1E40AF;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="470" width="200" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- UC 4: Audit Low Stock -->
+        <mxCell id="uc_audit" value="Audit Low Stock Fleet&#xa;&amp; Threshold Alerts" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFF1F2;strokeColor=#E11D48;strokeWidth=2;fontColor=#9F1239;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="620" width="190" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- UC 5: Restructure Catalog -->
+        <mxCell id="uc_catalog" value="Restructure Catalog &amp;&#xa;Admin Quick-Edit" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FAF5FF;strokeColor=#9333EA;strokeWidth=2;fontColor=#6B21A8;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="750" width="200" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- UC 6: Inspect Ledger -->
+        <mxCell id="uc_ledger" value="Inspect Transaction&#xa;Ledger &amp; Audit Trail" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#475569;strokeWidth=2;fontColor=#334155;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="880" width="190" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- USE CASES: COLUMN 2 (INCLUDED / EXTENDED GOALS) -->
+        <!-- Included: Stock Check -->
+        <mxCell id="uc_sub_stock" value="Verify Real-Time&#xa;Stock Balance" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#0284C7;strokeWidth=1.5;fontColor=#0369A1;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="160" width="180" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Extended: Grant Warranty -->
+        <mxCell id="uc_sub_grant" value="Grant Machine&#xa;Warranty Period" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#F59E0B;strokeWidth=1.5;fontColor=#B45309;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="240" width="180" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Extended: Auto-Suggest -->
+        <mxCell id="uc_sub_suggest" value="Auto-Suggest Registered&#xa;Customer Profile" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=1.5;fontColor=#475569;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="640" y="320" width="180" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Included: Verify Active Warranty -->
+        <mxCell id="uc_sub_vwarr" value="Verify Active Machine&#xa;Warranty Coverage" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#0284C7;strokeWidth=1.5;fontColor=#0369A1;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="440" width="180" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Included: $0 Outbound Claim -->
+        <mxCell id="uc_sub_zero" value="Stock Out Part Under&#xa;Warranty Protocol ($0)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#059669;strokeWidth=1.5;fontColor=#047857;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="520" width="180" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Extended: Correct Stock Inline -->
+        <mxCell id="uc_sub_inline" value="Correct Live Stock&#xa;Discrepancy Inline" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#9333EA;strokeWidth=1.5;fontColor=#7E22CE;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="640" y="730" width="180" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Included: Broadcast Sync -->
+        <mxCell id="uc_sub_sync" value="Broadcast Instant&#xa;Cross-Terminal Sync" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#0284C7;strokeWidth=1.5;fontColor=#0369A1;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="820" width="180" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ASSOCIATIONS: CASHIER (LEFT) -->
+        <mxCell id="l_c1" style="endArrow=none;html=1;strokeColor=#EA580C;strokeWidth=2;" edge="1" parent="1" source="act_cashier" target="uc_sale">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_c2" style="endArrow=none;html=1;strokeColor=#EA580C;strokeWidth=2;" edge="1" parent="1" source="act_cashier" target="uc_restock">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_c3" style="endArrow=none;html=1;strokeColor=#EA580C;strokeWidth=2;" edge="1" parent="1" source="act_cashier" target="uc_claim">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_c4" style="endArrow=none;html=1;strokeColor=#EA580C;strokeWidth=2;" edge="1" parent="1" source="act_cashier" target="uc_audit">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_c5" style="endArrow=none;html=1;strokeColor=#EA580C;strokeWidth=2;" edge="1" parent="1" source="act_cashier" target="uc_ledger">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ASSOCIATIONS: ADMIN (LEFT) -->
+        <mxCell id="l_a1" style="endArrow=none;html=1;strokeColor=#9333EA;strokeWidth=2;" edge="1" parent="1" source="act_admin" target="uc_sale">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_a2" style="endArrow=none;html=1;strokeColor=#9333EA;strokeWidth=2;" edge="1" parent="1" source="act_admin" target="uc_claim">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_a3" style="endArrow=none;html=1;strokeColor=#9333EA;strokeWidth=2;" edge="1" parent="1" source="act_admin" target="uc_catalog">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_a4" style="endArrow=none;html=1;strokeColor=#9333EA;strokeWidth=2;" edge="1" parent="1" source="act_admin" target="uc_ledger">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ASSOCIATIONS: SECONDARY ACTORS (RIGHT) -->
+        <mxCell id="l_r1" style="endArrow=none;html=1;strokeColor=#0284C7;strokeWidth=2;" edge="1" parent="1" source="uc_sale" target="act_customer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_r2" style="endArrow=none;html=1;strokeColor=#0284C7;strokeWidth=2;" edge="1" parent="1" source="uc_claim" target="act_customer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_r3" style="endArrow=none;html=1;strokeColor=#059669;strokeWidth=2;" edge="1" parent="1" source="uc_restock" target="act_supplier">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_r4" style="endArrow=none;html=1;strokeColor=#0369A1;strokeWidth=2;" edge="1" parent="1" source="uc_sub_sync" target="act_broadcast">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_r5" style="endArrow=none;html=1;strokeColor=#E11D48;strokeWidth=2;" edge="1" parent="1" source="uc_audit" target="act_alert">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- UML CONNECTORS: INCLUDE & EXTEND -->
+        <mxCell id="inc1" value="&amp;#171;include&amp;#187;" style="html=1;verticalAlign=bottom;labelBackgroundColor=#FFFFFF;endArrow=open;dashed=1;endSize=8;strokeWidth=1.5;strokeColor=#0284C7;fontColor=#0284C7;fontSize=10;fontStyle=1;" edge="1" parent="1" source="uc_sale" target="uc_sub_stock">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext1" value="&amp;#171;extend&amp;#187;" style="html=1;verticalAlign=bottom;labelBackgroundColor=#FFFFFF;endArrow=open;dashed=1;endSize=8;strokeWidth=1.5;strokeColor=#F59E0B;fontColor=#B45309;fontSize=10;fontStyle=1;" edge="1" parent="1" source="uc_sub_grant" target="uc_sale">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext2" value="&amp;#171;extend&amp;#187;" style="html=1;verticalAlign=bottom;labelBackgroundColor=#FFFFFF;endArrow=open;dashed=1;endSize=8;strokeWidth=1.5;strokeColor=#64748B;fontColor=#475569;fontSize=10;fontStyle=1;" edge="1" parent="1" source="uc_sub_suggest" target="uc_sale">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="inc2" value="&amp;#171;include&amp;#187;" style="html=1;verticalAlign=bottom;labelBackgroundColor=#FFFFFF;endArrow=open;dashed=1;endSize=8;strokeWidth=1.5;strokeColor=#0284C7;fontColor=#0284C7;fontSize=10;fontStyle=1;" edge="1" parent="1" source="uc_restock" target="uc_sub_stock">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="inc3" value="&amp;#171;include&amp;#187;" style="html=1;verticalAlign=bottom;labelBackgroundColor=#FFFFFF;endArrow=open;dashed=1;endSize=8;strokeWidth=1.5;strokeColor=#0284C7;fontColor=#0284C7;fontSize=10;fontStyle=1;" edge="1" parent="1" source="uc_claim" target="uc_sub_vwarr">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="inc4" value="&amp;#171;include&amp;#187;" style="html=1;verticalAlign=bottom;labelBackgroundColor=#FFFFFF;endArrow=open;dashed=1;endSize=8;strokeWidth=1.5;strokeColor=#059669;fontColor=#047857;fontSize=10;fontStyle=1;" edge="1" parent="1" source="uc_claim" target="uc_sub_zero">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext3" value="&amp;#171;extend&amp;#187;" style="html=1;verticalAlign=bottom;labelBackgroundColor=#FFFFFF;endArrow=open;dashed=1;endSize=8;strokeWidth=1.5;strokeColor=#9333EA;fontColor=#7E22CE;fontSize=10;fontStyle=1;" edge="1" parent="1" source="uc_sub_inline" target="uc_catalog">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="inc5" value="&amp;#171;include&amp;#187;" style="html=1;verticalAlign=bottom;labelBackgroundColor=#FFFFFF;endArrow=open;dashed=1;endSize=8;strokeWidth=1.5;strokeColor=#0284C7;fontColor=#0284C7;fontSize=10;fontStyle=1;" edge="1" parent="1" source="uc_claim" target="uc_sub_sync">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,6 @@
+.env
+inventory.db
+adminer.php
+scratch_inspect.php
+*.pptx
+*.tar.gz

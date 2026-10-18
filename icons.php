@@ -115,9 +115,9 @@ function icon(string $name, string $classes = 'w-5 h-5', string $extraAttrs = ''
 
 function getAvailableCategoryIcons(): array {
     return [
-        'uv-printer' => 'Laser',
-        'laser-cutter' => 'Flatbed',
-        'cnc-spindle' => 'CNC',
+        'uv-printer' => 'UV Printer',
+        'laser-cutter' => 'Laser Cutter',
+        'cnc-spindle' => 'CNC Router',
         'vinyl-roll' => 'Vinyl / Media Roll',
         'motor' => 'Motors / Parts',
         'hose' => 'Hoses / Connectors',

@@ -1,12 +1,8 @@
-const CACHE_NAME = 'alrish-cache-v6';
+const CACHE_NAME = 'alrish-cache-v7';
 const STATIC_ASSETS = [
     'manifest.json',
     'manifest.php',
-    'logo.png',
-    'icons/uv-printer.png',
-    'icons/laser-cutter.png',
-    'icons/cnc-spindle.png',
-    'icons/vinyl-roll.png'
+    'logo.png'
 ];
 
 self.addEventListener('install', (event) => {

@@ -4,18 +4,45 @@
  * 100% Vector SVGs - Zero Emojis
  */
 
-function icon(string $name, string $classes = 'w-5 h-5', string $extraAttrs = ''): string {
-    // Custom Machinery & Material Icons (Adaptive Color Masking - Supports brand-500 orange, slate-400 gray, etc.)
-    $customPngIcons = [
-        'uv-printer' => 'icons/uv-printer.png',
-        'laser-cutter' => 'icons/laser-cutter.png',
-        'cnc-spindle' => 'icons/cnc-spindle.png',
-        'vinyl-roll' => 'icons/vinyl-roll.png',
+function customMachineIcons(): array {
+    return [
+        'uv-printer'   => '<path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 13h10"/><path d="M8 20v1M12 20v2M16 20v1"/>',
+        'laser-cutter' => '<path d="M12 2v7"/><path d="M9 9h6l-1.5 3h-3z"/><rect x="2" y="15" width="20" height="6" rx="1"/><path d="M7 18h10"/><path d="M5 5l2 2M19 5l-2 2"/>',
+        'cnc-spindle'  => '<rect x="8" y="2" width="8" height="8" rx="1"/><path d="M12 10v7"/><path d="M10 17h4l-2 4z"/><path d="M3 21h4M17 21h4"/>',
+        'vinyl-roll'   => '<circle cx="9" cy="12" r="7"/><circle cx="9" cy="12" r="2.5"/><path d="M16 6h5v12H9"/>',
+        'motor'        => '<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>',
+        'hose'         => '<path d="M9 2v5M15 2v5"/><path d="M6 7h12v4a6 6 0 0 1-12 0z"/><path d="M12 17v5"/>',
     ];
+}
 
-    if (isset($customPngIcons[$name])) {
-        $maskPath = $customPngIcons[$name];
-        return '<span class="' . $classes . ' inline-block bg-current shrink-0" style="-webkit-mask: url(\'' . $maskPath . '\') no-repeat center / contain; mask: url(\'' . $maskPath . '\') no-repeat center / contain;" ' . $extraAttrs . '></span>';
+/** Picks the best icon key from the stored icon code and the category name. */
+function resolveCategoryIconKey(string $iconCode, string $name = ''): string {
+    $code = strtolower(trim($iconCode));
+    // Specific icons chosen explicitly in the catalog editor win
+    $specific = ['uv-printer','laser-cutter','cnc-spindle','vinyl-roll','motor','hose','droplet','cpu','tool','layers','scissors','sliders','shield','tag','truck','activity','sparkles','archive','cart'];
+    if (in_array($code, $specific, true)) return $code;
+
+    $t = strtolower($name . ' ' . $code);
+    $has = fn(string $re) => (bool)preg_match($re, $t);
+    if ($has('/motor/')) return 'motor';
+    if ($has('/hose|connector|cartridge/')) return 'hose';
+    if ($has('/lamination|laminator/')) return 'layers';
+    if ($has('/plotter|cutting/')) return 'scissors';
+    if ($has('/cnc|router|spindle|milling/') || $iconCode === '🗜️') return 'cnc-spindle';
+    if ($has('/laser|lser|co2|fiber/') || $iconCode === '⚡' || $code === 'zap') return 'laser-cutter';
+    if ($has('/\buv\b|dtf/')) return 'uv-printer';
+    if ($has('/\bink|droplet/') || $iconCode === '🧪') return 'droplet';
+    if ($has('/printer|eco|solvent/') || $iconCode === '⚙️') return 'printer';
+    if ($has('/vinyl|roll|film|media|sheet/')) return 'vinyl-roll';
+    if ($has('/heat/')) return 'tool';
+    return in_array($code, array_keys(getAvailableCategoryIcons()), true) ? $code : 'box';
+}
+
+function icon(string $name, string $classes = 'w-5 h-5', string $extraAttrs = ''): string {
+    // Custom machinery icons (inline SVG - no external files to go missing)
+    $custom = customMachineIcons();
+    if (isset($custom[$name])) {
+        return '<svg class="' . $classes . '" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" ' . $extraAttrs . '>' . $custom[$name] . '</svg>';
     }
 
     $icons = [
@@ -92,6 +119,8 @@ function getAvailableCategoryIcons(): array {
         'laser-cutter' => 'Flatbed',
         'cnc-spindle' => 'CNC',
         'vinyl-roll' => 'Vinyl / Media Roll',
+        'motor' => 'Motors / Parts',
+        'hose' => 'Hoses / Connectors',
         'box' => 'Box / Package',
         'printer' => 'Printer / Plotter',
         'zap' => 'Laser / Electric',
@@ -111,25 +140,6 @@ function getAvailableCategoryIcons(): array {
     ];
 }
 
-function getCategoryIcon(string $iconCode, string $classes = 'w-5 h-5'): string {
-    $normalized = strtolower(trim($iconCode));
-    
-    // Direct matches
-    $available = getAvailableCategoryIcons();
-    if (isset($available[$normalized])) {
-        return icon($normalized, $classes);
-    }
-    
-    // Keyword and legacy alias matches
-    if (strpos($normalized, 'uv') !== false || strpos($normalized, 'dtf') !== false) return icon('uv-printer', $classes);
-    if (strpos($normalized, 'laser') !== false || $iconCode === '⚡' || $iconCode === 'zap') return icon('laser-cutter', $classes);
-    if (strpos($normalized, 'spindle') !== false || strpos($normalized, 'milling') !== false || strpos($normalized, 'router') !== false || strpos($normalized, 'cnc') !== false || $iconCode === '🗜️') return icon('cnc-spindle', $classes);
-    if (strpos($normalized, 'vinyl') !== false || strpos($normalized, 'roll') !== false || strpos($normalized, 'film') !== false) return icon('vinyl-roll', $classes);
-    if (strpos($normalized, 'ink') !== false || $iconCode === '🧪' || $iconCode === 'droplet') return icon('droplet', $classes);
-    if (strpos($normalized, 'printer') !== false || strpos($normalized, 'plotter') !== false || strpos($normalized, 'eco') !== false || $iconCode === '⚙️') return icon('printer', $classes);
-    if (strpos($normalized, 'lamination') !== false || strpos($normalized, 'heat') !== false) return icon('tool', $classes);
-    if (strpos($normalized, 'media') !== false || strpos($normalized, 'sheet') !== false) return icon('vinyl-roll', $classes);
-    if (strpos($normalized, 'cut') !== false) return icon('scissors', $classes);
-    
-    return icon('box', $classes);
+function getCategoryIcon(string $iconCode, string $classes = 'w-5 h-5', string $name = ''): string {
+    return icon(resolveCategoryIconKey($iconCode, $name), $classes);
 }

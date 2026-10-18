@@ -5,6 +5,7 @@
  */
 
 require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/icons.php';
 
 class Database {
     private static ?PDO $instance = null;
@@ -245,6 +246,7 @@ function fetchCategories(PDO $pdo): array {
     $categories = [];
     $stmt = $pdo->query("SELECT * FROM inventory_categories ORDER BY slug ASC");
     while ($row = $stmt->fetch()) {
+        $row['icon_key'] = resolveCategoryIconKey((string)($row['icon'] ?? ''), (string)($row['name'] ?? ''));
         $categories[$row['slug']] = $row;
     }
     return $categories;

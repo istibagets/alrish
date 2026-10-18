@@ -598,7 +598,7 @@ function renderLedgerTableBody(array $grouped_logs, array $categories_db, bool $
                     <div class="divide-y divide-slate-800/40">
                         <?php foreach($group['items'] as $item): 
                             $catIcon = $categories_db[$item['category']]['icon'] ?? 'box';
-                            $catIconSvg = getCategoryIcon($catIcon, 'w-3.5 h-3.5 text-brand-500 shrink-0');
+                            $catIconSvg = getCategoryIcon($catIcon, 'w-3.5 h-3.5 text-brand-500 shrink-0', $categories_db[$item['category']]['name'] ?? '');
                             $catNameFormatted = $categories_db[$item['category']]['name'] ?? ucfirst($item['category']);
                             $warrDisplay = ($item['warranty'] > 0) ? $item['warranty'] . ' Mos' : '--';
                             
@@ -684,7 +684,7 @@ function renderDashboardCards(array $categories_db, array $catalog, PDO $pdo, bo
     ?>
     <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6" id="dashboard-categories-grid">
         <?php foreach ($categories_db as $slug => $cat_info): 
-            $catIconSvg = getCategoryIcon($cat_info['icon'] ?? 'box', 'w-5 h-5 text-brand-500 shrink-0');
+            $catIconSvg = getCategoryIcon($cat_info['icon'] ?? 'box', 'w-5 h-5 text-brand-500 shrink-0', $cat_info['name'] ?? '');
         ?>
         <div class="bg-slate-900 rounded-3xl border border-slate-800 shadow-xl overflow-hidden dashboard-category-card" data-cat="<?= $slug ?>">
             <!-- Header Bar (Wrap-Friendly) -->
@@ -986,7 +986,7 @@ function renderAdminCategoryCards(array $categories_db, array $catalog, PDO $pdo
     ?>
     <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6 mb-8" id="admin-category-cards-grid">
         <?php foreach($categories_db as $slug => $cat_info): 
-            $catIconSvg = getCategoryIcon($cat_info['icon'] ?? 'box', 'w-5 h-5 text-brand-500 shrink-0');
+            $catIconSvg = getCategoryIcon($cat_info['icon'] ?? 'box', 'w-5 h-5 text-brand-500 shrink-0', $cat_info['name'] ?? '');
         ?>
         <div class="bg-slate-900 p-4 sm:p-5 rounded-3xl border border-slate-800 shadow-xl admin-category-card" data-cat="<?= $slug ?>">
             <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-3 gap-2">
@@ -1320,6 +1320,7 @@ if (isset($_GET['msg'])) {
         window.IS_ADMIN = <?= $is_admin ? 'true' : 'false' ?>;
         window.SYSTEM_CATALOG = <?= json_encode($catalog) ?>;
         window.SYSTEM_CATEGORIES = <?= json_encode($categories_db) ?>;
+        window.CUSTOM_ICON_DEFS = <?= json_encode(customMachineIcons()) ?>;
         window.CURRENT_STOCKS = <?= json_encode($initial_stocks) ?>;
         window.SYSTEM_CUSTOMERS = <?= json_encode($customers_list) ?>;
         window.CUSTOMER_WARRANTIES = <?= json_encode($customer_warranties) ?>;
@@ -1960,13 +1961,6 @@ if (isset($_GET['msg'])) {
         let activePosSearchIndex = -1;
 
         function getJsCategoryIcon(iconCode, classes = 'w-3.5 h-3.5') {
-            const customPngIcons = {
-                'uv-printer': 'icons/uv-printer.png',
-                'laser-cutter': 'icons/laser-cutter.png',
-                'cnc-spindle': 'icons/cnc-spindle.png',
-                'vinyl-roll': 'icons/vinyl-roll.png'
-            };
-
             const icons = {
                 'dashboard': `<svg class="${classes}" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>`,
                 'cart': `<svg class="${classes}" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path stroke-linecap="round" stroke-linejoin="round" d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>`,
@@ -1993,22 +1987,13 @@ if (isset($_GET['msg'])) {
             };
 
             const norm = (iconCode || 'box').toLowerCase().trim();
-            if (customPngIcons[norm]) {
-                return `<span class="${classes} inline-block bg-current shrink-0" style="-webkit-mask: url('${customPngIcons[norm]}') no-repeat center / contain; mask: url('${customPngIcons[norm]}') no-repeat center / contain;"></span>`;
+            const custom = window.CUSTOM_ICON_DEFS || {};
+            if (custom[norm]) {
+                return `<svg class="${classes}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">${custom[norm]}</svg>`;
             }
             if (icons[norm]) {
                 return icons[norm];
             }
-            if (norm.includes('uv') || norm.includes('dtf')) return `<span class="${classes} inline-block bg-current shrink-0" style="-webkit-mask: url('icons/uv-printer.png') no-repeat center / contain; mask: url('icons/uv-printer.png') no-repeat center / contain;"></span>`;
-            if (norm.includes('laser') || norm === '⚡' || norm === 'zap') return `<span class="${classes} inline-block bg-current shrink-0" style="-webkit-mask: url('icons/laser-cutter.png') no-repeat center / contain; mask: url('icons/laser-cutter.png') no-repeat center / contain;"></span>`;
-            if (norm.includes('spindle') || norm.includes('milling') || norm.includes('router') || norm.includes('cnc') || norm === '🗜️') return `<span class="${classes} inline-block bg-current shrink-0" style="-webkit-mask: url('icons/cnc-spindle.png') no-repeat center / contain; mask: url('icons/cnc-spindle.png') no-repeat center / contain;"></span>`;
-            if (norm.includes('vinyl') || norm.includes('roll') || norm.includes('film')) return `<span class="${classes} inline-block bg-current shrink-0" style="-webkit-mask: url('icons/vinyl-roll.png') no-repeat center / contain; mask: url('icons/vinyl-roll.png') no-repeat center / contain;"></span>`;
-            if (norm.includes('ink') || norm === '🧪' || norm === 'droplet') return icons['droplet'];
-            if (norm.includes('printer') || norm.includes('plotter') || norm.includes('eco') || norm === '⚙️') return icons['printer'];
-            if (norm.includes('lamination') || norm.includes('heat')) return icons['tool'];
-            if (norm.includes('media') || norm.includes('sheet')) return `<span class="${classes} inline-block bg-current shrink-0" style="-webkit-mask: url('icons/vinyl-roll.png') no-repeat center / contain; mask: url('icons/vinyl-roll.png') no-repeat center / contain;"></span>`;
-            if (norm.includes('cut')) return icons['scissors'];
-
             return icons['box'];
         }
 
@@ -2018,7 +2003,7 @@ if (isset($_GET['msg'])) {
 
             for (const [slug, catInfo] of Object.entries(window.SYSTEM_CATEGORIES)) {
                 const catName = catInfo.name || slug;
-                const catIcon = catInfo.icon || 'box';
+                const catIcon = catInfo.icon_key || catInfo.icon || 'box';
                 const isMachine = (catInfo.is_machine !== undefined) ? parseInt(catInfo.is_machine, 10) !== 0 : true;
 
                 // 1. Complete Machine Model Unit
